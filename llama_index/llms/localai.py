@@ -1,10 +1,11 @@
+import warnings
 from typing import Any, Dict, Optional
 
 from llama_index.bridge.pydantic import Field
 from llama_index.constants import DEFAULT_CONTEXT_WINDOW
 from llama_index.llms.base import LLMMetadata
 from llama_index.llms.openai import OpenAI
-from llama_index.llms.openai_like import LOCALAI_DEFAULTS
+from llama_index.llms.openai_like import LOCALAI_DEFAULTS, OpenAILike
 from llama_index.llms.openai_utils import is_function_calling_model
 
 DEFAULT_API_KEY = "fake"
@@ -43,6 +44,15 @@ class LocalAI(OpenAI):
         **kwargs: Any,
     ) -> None:
         super().__init__(api_key=api_key, api_base=api_base, **kwargs)
+        warnings.warn(
+            (
+                f"{type(self).__name__} subclass is deprecated in favor of composition"
+                f" with {OpenAILike.__name__}. Deprecation cycle will complete sometime"
+                " in late December 2023."
+            ),
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     @classmethod
     def class_name(cls) -> str:
