@@ -4,6 +4,7 @@ from llama_index.bridge.pydantic import Field
 from llama_index.constants import DEFAULT_CONTEXT_WINDOW
 from llama_index.llms.base import LLMMetadata
 from llama_index.llms.openai import OpenAI
+from llama_index.llms.openai_like import LOCALAI_DEFAULTS
 from llama_index.llms.openai_utils import is_function_calling_model
 
 DEFAULT_API_KEY = "fake"
@@ -37,8 +38,8 @@ class LocalAI(OpenAI):
 
     def __init__(
         self,
-        api_key: Optional[str] = DEFAULT_API_KEY,
-        api_base: Optional[str] = DEFAULT_API_BASE,
+        api_key: Optional[str] = LOCALAI_DEFAULTS["api_key"],
+        api_base: Optional[str] = LOCALAI_DEFAULTS["api_base"],
         **kwargs: Any,
     ) -> None:
         super().__init__(api_key=api_key, api_base=api_base, **kwargs)
