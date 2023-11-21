@@ -34,7 +34,7 @@ class OpenAILike(OpenAI):
             "is_function_calling_model"
         ].field_info.description,
     )
-    tokenizer: Optional[Tokenizer] = Field(
+    tokenizer: Union[Tokenizer, str, None] = Field(
         default=None,
         description=(
             "An instance of a tokenizer object that has an encode method, or the name"
